@@ -1,13 +1,25 @@
 package br.com.boracodardevs.biblioteca.domain;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Livro {
+@Entity
+@Table(name = "livros")
+public class Livro implements Serializable {
+
+    private static final long serialiVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String titulo;
     private String nome_autor;
     private String texto;
 
+    @OneToMany
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     public Livro(Integer id, String titulo, String nome_autor, String texto, Categoria categoria) {
