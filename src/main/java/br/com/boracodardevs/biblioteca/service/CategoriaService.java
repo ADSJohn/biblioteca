@@ -1,4 +1,4 @@
-package br.com.boracodardevs.biblioteca.service.categoria;
+package br.com.boracodardevs.biblioteca.service;
 
 import br.com.boracodardevs.biblioteca.domain.Categoria;
 import br.com.boracodardevs.biblioteca.repositories.CategoriaRepository;

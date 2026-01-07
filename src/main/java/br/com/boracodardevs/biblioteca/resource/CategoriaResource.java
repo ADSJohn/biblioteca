@@ -1,7 +1,11 @@
-package br.com.boracodardevs.biblioteca.categoria.resources;
+package br.com.boracodardevs.biblioteca.resource;
 
 import br.com.boracodardevs.biblioteca.domain.Categoria;
+import br.com.boracodardevs.biblioteca.service.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-    public ResponseEntity<Categoria> findById(@PathVariable Integer id){
+    @Autowired
+    private CategoriaService categoriaService;
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Categoria> findById(@PathVariable Integer id){
+        Categoria categoria = categoriaService.findById(id);
+        return ResponseEntity.ok().body(categoria);
     }
 
 }
