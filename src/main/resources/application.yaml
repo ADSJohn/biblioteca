@@ -1,5 +1,11 @@
 spring:
   application:
     name: biblioteca
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
   datasource:
-    url:
+    url: jdbc:postgresql://localhost/biblioteca
+    username: boracodardevs
+    password: boracodardevs
+    driver-class-name: org.postgresql.Driver
