@@ -14,13 +14,17 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Categoria findById(Integer id){
+    public Categoria findById(Integer id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
         return categoria.orElse(null);
     }
 
-	public List<Categoria> findAll(){
-		return categoriaRepository.findAll();
-	}
+    public List<Categoria> findAll() {
+        return categoriaRepository.findAll();
+    }
 
+    public Categoria create(Categoria categoria) {
+        categoria.setId(null);
+        return categoriaRepository.save(categoria);
+    }
 }
