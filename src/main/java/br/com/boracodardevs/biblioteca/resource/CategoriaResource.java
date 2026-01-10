@@ -6,16 +6,15 @@ import br.com.boracodardevs.biblioteca.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/categorias")
+@RequestMapping(value = "/api/v1/categorias")
 public class CategoriaResource {
 
     @Autowired
@@ -27,10 +26,19 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(categoria);
     }
 
+    @GetMapping
 	public ResponseEntity<List<CategoriaDto>> findAll(){
 		var categorias = categoriaService.findAll();
 		var categoriaDto = categorias.stream().map(CategoriaDto::new).collect(Collectors.toList());
 		return ResponseEntity.ok().body(categoriaDto);
 	}
+
+    @PostMapping
+    public ResponseEntity<Categoria> create(@RequestBody Categoria categoria){
+        var categoria = categoriaService.create(categoria);
+        var uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+        return ResponseEntity.created(uri).body(categoria);
+
+    }
 
 }
